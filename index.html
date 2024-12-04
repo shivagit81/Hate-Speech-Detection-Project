@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hate Speech Detection Using AI</title>
+    <style>
+        body {
+            background-color: #17202a; /* Blackish Blue Background */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #ecf0f1; /* Light Gray Header */
+        }
+
+        div {
+            color: #bdc3c7; /* Light Gray Text */
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #3498db; /* Blue Links */
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        #submit-form {
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 80%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #34495e; /* Dark Gray Border */
+            border-radius: 5px;
+            color: #ecf0f1; /* Light Gray Text */
+            background-color: #2c3e50; /* Darker Gray Textarea Background */
+        }
+
+        #submit-button {
+            background-color: #2980b9; /* Dark Blue Submit Button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        /* Colors for prediction results */
+        #result.red {
+            color: #e74c3c; /* Red for Hate Speech */
+        }
+
+        #result.green {
+            color: #2ecc71; /* Green for Not Hate Speech */
+        }
+
+        #hate-speech-info {
+            color: #ecf0f1; /* Light Gray Text */
+            background-color: #34495e; /* Darker Gray Background */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        #hate-speech-info h2 {
+            color: #3498db; /* Blue Header */
+        }
+    </style>
+    <script>
+        function showResult() {
+            event.preventDefault();  // Prevent the default form submission
+            var resultDiv = document.getElementById('result');
+            if (resultDiv) {
+                // Simulate prediction (replace this with your actual prediction logic)
+                var prediction = Math.random() < 0.5; // Example: Randomly true or false
+
+                // Display the result with appropriate color
+                resultDiv.innerHTML = prediction ? 'Hate Speech Detected' : 'Not Hate Speech';
+                resultDiv.className = prediction ? 'red' : 'green';
+                resultDiv.style.display = 'block';
+            }
+
+            // Simulate form submission (replace this with your actual form submission logic)
+            var form = document.getElementById('submit-form');
+            var formData = new FormData(form);
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+            .then(data => {
+                // Handle the response data as needed
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>HATE SPEECH DETECTION USING AI</h1>
+    <div>
+        <a href="https://github.com/your-username">GitHub</a> |
+        <a href="https://www.linkedin.com/in/your-username">LinkedIn</a> |
+        Email: your.email@example.com
+    </div>
+    
+    <div id="content">
+        <p>
+            Here, you can submit text, and the system will detect whether it contains hate speech.
+        </p>
+        <form id="submit-form" onsubmit="showResult()">
+            <textarea name="text" placeholder="Enter text here..." required></textarea><br>
+            <button id="submit-button" type="submit">Submit</button>
+        </form>
+        <div id="result" style="display: none;"></div>
+
+        <div id="hate-speech-info">
+            <h2>About Hate Speech on Social Media</h2>
+            <p>
+                Hate speech on social media is a serious issue that can have profound consequences on individuals and communities.
+                It often involves the use of discriminatory language, offensive content, or harmful stereotypes targeting specific
+                groups based on factors such as race, ethnicity, religion, gender, or other protected characteristics.
+            </p>
+            <p>
+                The impact of hate speech extends beyond the digital realm, contributing to real-world harm, discrimination, and violence.
+                Addressing and combating hate speech is essential for fostering a more inclusive and respectful online environment.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
